@@ -9,6 +9,7 @@ namespace kafka
 {
     class Program
     {
+        private static string _bootstrapServers = "localhost:9092";
         static async Task Main(string[] args)
         {
             var cancel = new CancellationTokenSource();
@@ -26,7 +27,7 @@ namespace kafka
                 {
                     var config = new ConsumerConfig
                     {
-                        BootstrapServers = "localhost:9092",
+                        BootstrapServers = _bootstrapServers,
                         GroupId = System.Guid.NewGuid().ToString(),
                         AutoOffsetReset = AutoOffsetReset.Earliest,
                         EnableAutoCommit = false,
@@ -59,7 +60,7 @@ namespace kafka
             {
                 var producerConfig = new ProducerConfig
                 {
-                    BootstrapServers = "192.168.1.40:9092",
+                    BootstrapServers = _bootstrapServers,
                     ClientId = Dns.GetHostName(),
                 };
                 await Task.Run(() =>
@@ -84,7 +85,7 @@ namespace kafka
             {
                 var producerConfig = new ProducerConfig
                 {
-                    BootstrapServers = "192.168.1.40:9092",
+                    BootstrapServers = _bootstrapServers,
                     ClientId = Dns.GetHostName(),
                 };
                 await Task.Run(async () =>
